@@ -13,6 +13,7 @@ import com.dummy.search.model.Search
 import com.dummy.search.viewModel.SearchViewModel
 
 class MainActivity : AppCompatActivity() {
+    //explicit variables for local sources, repo and use case would be removed once DI is implemented
     private val testLocalSource = TestLocalSourceImpl()
     private val lessonLocalSource = LessonLocalSourceImpl()
     private val repo = SearchRepositoryImpl(lessonLocalSource, testLocalSource)
