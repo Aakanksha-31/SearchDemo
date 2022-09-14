@@ -1,4 +1,4 @@
-package com.dummy.search.dataManager
+package com.dummy.search.repo
 
 import com.dummy.search.model.Lesson
 import com.dummy.search.model.Test
@@ -8,6 +8,10 @@ import com.dummy.search.model.Test
  * aakanksha.verma@dailyrounds.org
  */
 interface SearchRepository {
+    /**
+     * In case we are getting data from multiple tables, making separate repositories (LessonRepository & TestRepository) would make more sense.
+     * Making single SearchRepository is beneficial when data is coming from single source
+     */
     fun getTestSearchedData(searchQuery: String): ArrayList<Test>
     fun getLessonSearchedData(searchQuery: String): ArrayList<Lesson>
 }

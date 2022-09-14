@@ -1,4 +1,4 @@
-package com.dummy.search.dataManager
+package com.dummy.search.repo
 
 import com.dummy.search.localSource.lesson.LessonLocalSource
 import com.dummy.search.localSource.test.TestLocalSource

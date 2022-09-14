@@ -1,6 +1,6 @@
 package com.dummy.search.domain
 
-import com.dummy.search.dataManager.SearchRepository
+import com.dummy.search.repo.SearchRepository
 import com.dummy.search.model.Lesson
 import com.dummy.search.model.Search
 import com.dummy.search.model.Test
@@ -9,11 +9,11 @@ import com.dummy.search.model.Test
  * Created by Aakanksha on 13/09/22.
  * aakanksha.verma@dailyrounds.org
  */
-class SearchUseCaseImpl(private var dataManager : SearchRepository) : SearchUseCase {
+class SearchUseCaseImpl(private var repo : SearchRepository) : SearchUseCase {
 
     override fun getSearchedData(searchQuery: String): ArrayList<Search> {
-        val lessonList = /*async {*/ dataManager.getLessonSearchedData(searchQuery)/*}*/
-        val testList = /*async {*/ dataManager.getTestSearchedData(searchQuery)/*}*/
+        val lessonList = /*async {*/ repo.getLessonSearchedData(searchQuery)/*}*/
+        val testList = /*async {*/ repo.getTestSearchedData(searchQuery)/*}*/
 
         return getMergedData(lessonList, testList)
     }
@@ -27,7 +27,7 @@ class SearchUseCaseImpl(private var dataManager : SearchRepository) : SearchUseC
             Search(id = it.id, title = it.title, type = it.type)
         })
         mergedList.addAll(testList.map {
-            Search(id = it.id, title = it.title)
+            Search(id = it.id, title = it.title, type = "test")
         })
         return mergedList
     }

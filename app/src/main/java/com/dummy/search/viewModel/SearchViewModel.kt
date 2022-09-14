@@ -1,5 +1,7 @@
 package com.dummy.search.viewModel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.dummy.search.domain.SearchUseCase
 import com.dummy.search.model.Search
 
@@ -10,16 +12,13 @@ import com.dummy.search.model.Search
 class SearchViewModel(private var useCase : SearchUseCase) {
     private var searchedQuery: String = ""
 
-    var searchResult: MutableList<Search> = mutableListOf()
+    private val _searchResult: MutableLiveData<ArrayList<Search>> = MutableLiveData()
+    var searchResult : LiveData<ArrayList<Search>> = _searchResult
 
     fun getSearchResults(searchQuery: String) {
-        searchedQuery = searchQuery
-        /**
-         * coroutine scope, parallel db calls
-         */
-
-        searchResult = useCase.getSearchedData(searchQuery)
-        searchResult.sortWith(comparator)
+        val searchedData = useCase.getSearchedData(searchQuery)
+        searchedData.sortedWith(comparator)
+        _searchResult.postValue(searchedData)
     }
 
     private var comparator = object : Comparator<Search> {
